@@ -1,0 +1,87 @@
+---
+title: "Simulations"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(MASS)
+```
+
+```{r}
+# Read in and filter data
+data <- read_csv("Data/game.csv")
+data <- data %>% filter(data$season == 20132014, data$home_team_id %in% c(seq(1,30), 52), data$away_team_id %in% c(seq(1,30), 52), data$type == 'R')
+data$home_team_id[data$home_team_id == 52] <- 11
+data$away_team_id[data$away_team_id == 52] <- 11
+```
+
+# The Model
+```{r}
+# There are three key parameters: the probability that the worst team in the league beats the best team in a random game (given by 'p'), the standard deviation in game-to-game performance levels for each team (given by 'tao'), and the standard deviation in the team talent levels (given by 'sigma'). We as the researchers choose a value for p or the ratio of tao and sigma.
+p = 0.25
+tao = 4.28
+sigma = 1
+
+# Draw a "team quality" value for all teams.
+teamQuality <- rnorm(30, 0, sigma)
+
+# Calculate tie threshhold.
+alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
+```
+
+# Simulating a season
+```{r}
+simulateSeason <- function() {
+  # Start all teams at 
+  teamPoints <- rep(0, 30)
+  for (game in 1:dim(data[1])) {
+    homeTeam <- getHomeTeam(game)
+    awayTeam <- getAwayTeam(game)
+    # Extract game performance values
+    homePerformance <- rnorm(teamQuality[homeTeam], tao)
+    awayPerformance <- rnorm(teamQuality[awayTeam], tao)
+  
+    # Check if there is a tie
+    tie <- abs(homePerformance - awayPerformance)
+      
+    # If the game did not go into overtime award points
+    if (tie >= alpha) {
+      if (homePerformance > awayPerformance) {
+        teamPoints[homeTeam] = teamPoints[homeTeam] + 2
+      }
+      else {
+        teamPoints[awayTeam] = teamPoints[awayTeam] + 2
+      }
+    }
+    # If the game did go into overtime simulate outcome of overtime
+    else {
+      
+    }
+    
+  }
+}
+```
+
+# Helper function
+```{r}
+getHomeTeam <- function(index) {
+  return (data$home_team_id[index])
+}
+
+getAwayTeam <- function(index) {
+  return (data$away_team_id[index])
+}
+```
+
+
+
+
+
+
+
+
+
+
+
