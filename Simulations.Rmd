@@ -34,37 +34,63 @@ alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
 # Simulating a season
 ```{r}
 simulateSeason <- function() {
-  # Start all teams at 
-  teamPoints <- rep(0, 30)
-  for (game in 1:dim(data[1])) {
+  # Create overall games matrix with format:
+  # GAME | TEAM 1 | TEAM 2 | GAMMA 1 | GAMMA 2 | GAMMA 1 - GAMMA 2 | OUTCOME 1 | OUTCOME 2
+  # Where 'outcome' is the number of points awarded to their respective teams
+  games <- list(seq(1, dim(data[1])[1]), rep(0, dim(data[1])[1]), rep(0, dim(data[1])[1]), rep(0, dim(data[1])[1]), rep(0, dim(data[1])[1]), rep(0, dim(data[1])[1]), rep(0, dim(data[1])[1]), rep(0, dim(data[1])[1]))
+  
+  # Go through the games
+  for (game in 1:length(games[[1]])) {
+    
+    # Get the teams for each game and put them in the games matrix
     homeTeam <- getHomeTeam(game)
     awayTeam <- getAwayTeam(game)
-    # Extract game performance values
-    homePerformance <- rnorm(teamQuality[homeTeam], tao)
-    awayPerformance <- rnorm(teamQuality[awayTeam], tao)
-  
-    # Check if there is a tie
-    tie <- abs(homePerformance - awayPerformance)
+    
+    games[[2]][game] <- homeTeam
+    games[[3]][game] <- awayTeam
       
-    # If the game did not go into overtime award points
-    if (tie >= alpha) {
-      if (homePerformance > awayPerformance) {
-        teamPoints[homeTeam] = teamPoints[homeTeam] + 2
+    # Extract game performance values -- insert into games matrix
+    homePerformance <- rnorm(n = 1, teamQuality[homeTeam], tao)
+    awayPerformance <- rnorm(n = 1, teamQuality[awayTeam], tao)
+    
+    games[[4]][game] <- homePerformance
+    games[[5]][game] <- awayPerformance
+    
+    # Check if there is a tie -- store difference for later
+    games[[6]][game] <- homePerformance - awayPerformance
+  }
+  a <- mean(games[[6]])
+  b <- max(games[[6]])
+  
+  # Go through and calculate outcomes
+  for (game in 1:length(games[[1]])) {
+    # If there is a tie award 2 points to the 'winner'
+    if (abs(games[[6]][game]) >= alpha) {
+      if (games[[6]][game] >= 0) {
+        games[[7]][game] <- 2
       }
       else {
-        teamPoints[awayTeam] = teamPoints[awayTeam] + 2
+        games[[8]][game] <- 2
       }
     }
-    # If the game did go into overtime simulate outcome of overtime
+    # Else rescale performances and simulate a winner, giving two points to the winner and one to the loser
     else {
-      
+      zeta <- (games[[6]][game] - a) / b
+      if (rbernoulli(1, p = zeta)) {
+        games[[7]][game] <- 2
+        games[[8]][game] <- 1
+      }
+      else {
+        games[[7]][game] <- 1
+        games[[8]][game] <- 2
+      }
     }
-    
   }
+  
 }
 ```
 
-# Helper function
+# Helper functions
 ```{r}
 getHomeTeam <- function(index) {
   return (data$home_team_id[index])
@@ -72,6 +98,10 @@ getHomeTeam <- function(index) {
 
 getAwayTeam <- function(index) {
   return (data$away_team_id[index])
+}
+
+overtime <- function() {
+  
 }
 ```
 
