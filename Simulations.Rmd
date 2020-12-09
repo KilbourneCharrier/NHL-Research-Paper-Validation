@@ -21,7 +21,7 @@ data$away_team_id[data$away_team_id == 52] <- 11
 ```
 
 # The Model
-```{r, set.seed(0)}
+```{r, set.seed(400)}
 # There are three key parameters: the probability that the worst team in the league beats the best team in a random game (given by 'p'), the standard deviation in game-to-game performance levels for each team (given by 'tao'), and the standard deviation in the team talent levels (given by 'sigma'). We as the researchers choose a value for p or the ratio of tao and sigma.
 p = 0.25
 tao = 4.28
@@ -199,7 +199,7 @@ returnNewWestern <- function(points) {
   wildcards = wildcards[order(-wildcards$totalPoints),]
   
   top6 <- rbind(central[1:3,],pacific[1:3,])
-  top6 = top6[order(-top$totalPoints),]
+  top6 = top6[order(-top6$totalPoints),]
 
   return(rbind(top6, wildcards))
 }
