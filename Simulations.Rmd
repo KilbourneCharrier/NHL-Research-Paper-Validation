@@ -9,8 +9,8 @@ library(tidyverse)
 library(MASS)
 ```
 
+# Read and filter the data
 ```{r}
-# Read in and filter data
 data <- read_csv("Data/game.csv")
 data <- data %>% filter(data$season == 20132014, data$home_team_id %in% c(seq(1,30), 52), data$away_team_id %in% c(seq(1,30), 52), data$type == 'R')
 data$home_team_id[data$home_team_id == 52] <- 11
@@ -29,6 +29,8 @@ teamQuality <- rnorm(30, 0, sigma)
 
 # Calculate tie threshhold.
 alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
+
+
 ```
 
 # Simulating a season
@@ -86,7 +88,7 @@ simulateSeason <- function() {
       }
     }
   }
-  
+  return(games)
 }
 ```
 
