@@ -99,9 +99,19 @@ calcTotalPoints <- function(season){
     totalPoints[season[[2]][game]] = totalPoints[season[[2]][i]] +   season[[7]][game]
     totalPoints[season[[3]][game]] = totalPoints[season[[3]][i]] + season[[8]][game]
   }
-  return(totalPoints)
+  returnVec = list(totalPoints, c("New Jersey Devils", "NY Islanders", "NY Rangers", "Philadelphia Flyers", "Pittsburgh Penguins", "Boston Bruins", "Buffalo Sabres", "Montreal Canadiens", "Ottowa Senators", "Toronto Maple Leafs", "Winnipeg Jets", "Carolina Hurricanes", "Florida Panthers", "Tampa Bay Lightning", "Washington Capitals", "Chicago Blackhawks", "Detroit Red Wings", "Nashville Predators", "St Louis Blues", "Calgary Flames", "Colorado Avalanche", "Edmonton Oilers", "Vancouver Canucks", "Anaheim Ducks", "Dallas Stars", "LA Kings", "Phoenix Coyotes", "San Jose Sharks", "Columbus Blue Jackets", "Minnesota Wild"))
+  return(returnVec)
 }
 ```
+
+```{r}
+seperateConf(points){
+  eastern = rep(0, 16)
+  western = rep(0, 14)
+  
+}
+```
+
 
 
 # Helper functions
