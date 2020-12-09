@@ -2,5 +2,28 @@
 title: "insert title here"
 author:
 output: powerpoint_presentation
-
 ---
+
+# NHL Background
+
+## The National Hockey League (NHL)
+
+-Each team plays 82 games per season
+-This allows for every team to play each team at least twice
+
+## The changes for the 2013-14 season
+
+- Winnipeg Jets move from the Eastern to the Western confrence
+- Columbus Blue jackets and Detroit Redwings move from the Wet to the East\
+
+## The reasoning for the sampling
+
+- Changes left the West with 2 divisions of 14 teams and the East with 2 divisions of 16 teams
+- 8 teams from both confrences wer garunteed to make the playoffs
+- The sampling is meant to test wheter or not it is more difficult to reach the playoffs as an eastern confrence team
+
+# Extension 2017-18 season
+
+- This season added the Vegas Golden Knights
+- Now the west has 1 divion of 8 teams and one division of 7 teams
+- This creates new probabillities for the required points to make it to the playoffs 
