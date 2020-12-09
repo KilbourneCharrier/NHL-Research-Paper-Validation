@@ -8,6 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(MASS)
 library(ggplot2)
+set.seed(400)
 ```
 
 # Read and filter the data
@@ -31,7 +32,7 @@ teamQuality <- rnorm(30, 0, sigma)
 # Calculate tie threshhold.
 alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
 
-nloop <- 1000
+nloop <- 10000
 oldGap <- rep(NA, nloop)
 newGap <- rep(NA, nloop)
 
@@ -47,7 +48,7 @@ for (i in 1:nloop) {
 }
 
 ggplot() +
-  geom_histogram(aes(oldGap) col = 2, bins = 50) +
+  geom_histogram(aes(oldGap), col = 2, bins = 50) +
   geom_histogram(aes(newGap), col = 4, bins = 50) 
 
 c(mean(oldGap), mean(newGap))
@@ -121,21 +122,12 @@ calcTotalPoints <- function(season){
     totalPoints[season[[3]][game]] = totalPoints[season[[3]][game]] + season[[8]][game]
   }
   returnVec = data.frame("id" = seq(1,30), totalPoints, "Team Name" = c("New Jersey Devils", "NY Islanders", "NY Rangers", "Philadelphia Flyers", "Pittsburgh Penguins", "Boston Bruins", "Buffalo Sabres", "Montreal Canadiens", "Ottowa Senators", "Toronto Maple Leafs", "Winnipeg Jets", "Carolina Hurricanes", "Florida Panthers", "Tampa Bay Lightning", "Washington Capitals", "Chicago Blackhawks", "Detroit Red Wings", "Nashville Predators", "St Louis Blues", "Calgary Flames", "Colorado Avalanche", "Edmonton Oilers", "Vancouver Canucks", "Anaheim Ducks", "Dallas Stars", "LA Kings", "Phoenix Coyotes", "San Jose Sharks", "Columbus Blue Jackets", "Minnesota Wild"))
-=======
-calcTotalPoints <- function(season){
-  totalPoints <- rep(0, 30)
-  for (game in 1:length(seasonGames[[1]])){
-    totalPoints[season[[2]][game]] = totalPoints[season[[2]][i]] +   season[[7]][game]
-    totalPoints[season[[3]][game]] = totalPoints[season[[3]][i]] + season[[8]][game]
-  }
-  returnVec = data.frame(totalPoints, "Team Name" = c("New Jersey Devils", "NY Islanders", "NY Rangers", "Philadelphia Flyers", "Pittsburgh Penguins", "Boston Bruins", "Buffalo Sabres", "Montreal Canadiens", "Ottowa Senators", "Toronto Maple Leafs", "Winnipeg Jets", "Carolina Hurricanes", "Florida Panthers", "Tampa Bay Lightning", "Washington Capitals", "Chicago Blackhawks", "Detroit Red Wings", "Nashville Predators", "St Louis Blues", "Calgary Flames", "Colorado Avalanche", "Edmonton Oilers", "Vancouver Canucks", "Anaheim Ducks", "Dallas Stars", "LA Kings", "Phoenix Coyotes", "San Jose Sharks", "Columbus Blue Jackets", "Minnesota Wild"))
 
   return(returnVec)
 }
 ```
 
 ```{r}
-
 returnOldEastern <- function(points) {
   atlantic = points[points$id %in% c(1:5),]
   northeast = points[points$id %in% c(6:10),]
@@ -191,6 +183,8 @@ returnNewWestern <- function(points) {
 
   return(rbind(central[1:3,],pacific[1:3,],wildcards[1:2,],wildcards[3:8,]))
 }
+```
+
 ```{r}
 seperateConf <- function(points){
   eastern = data.frame()
