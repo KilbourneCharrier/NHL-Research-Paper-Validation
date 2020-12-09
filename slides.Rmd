@@ -8,8 +8,8 @@ output: powerpoint_presentation
 
 ## The National Hockey League (NHL)
 
--Each team plays 82 games per season
--This allows for every team to play each team at least twice
+- Each team plays 82 games per season
+- This allows for every team to play each team at least twice
 
 ## The changes for the 2013-14 season
 
