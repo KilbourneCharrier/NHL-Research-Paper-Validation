@@ -10,8 +10,8 @@ library(MASS)
 library(ggplot2)
 ```
 
+# Read and filter the data
 ```{r}
-# Read in and filter data
 data <- read_csv("Data/game.csv")
 data <- data %>% filter(data$season == 20132014, data$home_team_id %in% c(seq(1,30), 52), data$away_team_id %in% c(seq(1,30), 52), data$type == 'R')
 data$home_team_id[data$home_team_id == 52] <- 11
@@ -30,8 +30,6 @@ teamQuality <- rnorm(30, 0, sigma)
 
 # Calculate tie threshhold.
 alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
-<<<<<<< Updated upstream
-=======
 
 nloop <- 1000
 oldGap <- rep(NA, nloop)
@@ -53,8 +51,6 @@ ggplot() +
   geom_histogram(aes(newGap), col = 4, bins = 50) 
 
 c(mean(oldGap), mean(newGap))
-
->>>>>>> Stashed changes
 ```
 
 # Simulating a season
@@ -112,9 +108,6 @@ simulateSeason <- function() {
       }
     }
   }
-<<<<<<< Updated upstream
-  
-=======
   return(games)
 }
 ```
@@ -128,10 +121,18 @@ calcTotalPoints <- function(season){
     totalPoints[season[[3]][game]] = totalPoints[season[[3]][game]] + season[[8]][game]
   }
   returnVec = data.frame("id" = seq(1,30), totalPoints, "Team Name" = c("New Jersey Devils", "NY Islanders", "NY Rangers", "Philadelphia Flyers", "Pittsburgh Penguins", "Boston Bruins", "Buffalo Sabres", "Montreal Canadiens", "Ottowa Senators", "Toronto Maple Leafs", "Winnipeg Jets", "Carolina Hurricanes", "Florida Panthers", "Tampa Bay Lightning", "Washington Capitals", "Chicago Blackhawks", "Detroit Red Wings", "Nashville Predators", "St Louis Blues", "Calgary Flames", "Colorado Avalanche", "Edmonton Oilers", "Vancouver Canucks", "Anaheim Ducks", "Dallas Stars", "LA Kings", "Phoenix Coyotes", "San Jose Sharks", "Columbus Blue Jackets", "Minnesota Wild"))
+=======
+calcTotalPoints <- function(season){
+  totalPoints <- rep(0, 30)
+  for (game in 1:length(seasonGames[[1]])){
+    totalPoints[season[[2]][game]] = totalPoints[season[[2]][i]] +   season[[7]][game]
+    totalPoints[season[[3]][game]] = totalPoints[season[[3]][i]] + season[[8]][game]
+  }
+  returnVec = data.frame(totalPoints, "Team Name" = c("New Jersey Devils", "NY Islanders", "NY Rangers", "Philadelphia Flyers", "Pittsburgh Penguins", "Boston Bruins", "Buffalo Sabres", "Montreal Canadiens", "Ottowa Senators", "Toronto Maple Leafs", "Winnipeg Jets", "Carolina Hurricanes", "Florida Panthers", "Tampa Bay Lightning", "Washington Capitals", "Chicago Blackhawks", "Detroit Red Wings", "Nashville Predators", "St Louis Blues", "Calgary Flames", "Colorado Avalanche", "Edmonton Oilers", "Vancouver Canucks", "Anaheim Ducks", "Dallas Stars", "LA Kings", "Phoenix Coyotes", "San Jose Sharks", "Columbus Blue Jackets", "Minnesota Wild"))
+
   return(returnVec)
 }
 ```
-
 
 ```{r}
 
@@ -189,9 +190,29 @@ returnNewWestern <- function(points) {
   wildcards = wildcards[order(-wildcards$totalPoints),]
 
   return(rbind(central[1:3,],pacific[1:3,],wildcards[1:2,],wildcards[3:8,]))
->>>>>>> Stashed changes
+}
+```{r}
+seperateConf <- function(points){
+  eastern = data.frame()
+  western = data.frame()
+  indexE = 1
+  indexW = 1
+  for (i in c(1:10, 12:15, 17, 29)){
+    eastern[indexE, 1] = points[i, 1]
+    eastern[indexE, 2] = points[i, 2]
+    indexE = indexE + 1
+  }
+  
+  for (i in c(11, 16, 18:28, 30)){
+    western[indexW, 1] = points[i, 1]
+    western[indexW, 2] = points[i, 2]
+    indexW = indexW + 1
+  }
+  return(c(eastern, western))
 }
 ```
+
+
 
 # Helper functions
 ```{r}
