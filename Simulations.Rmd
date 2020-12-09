@@ -9,7 +9,7 @@ library(tidyverse)
 library(MASS)
 library(ggplot2)
 library(plyr)
-set.seed(410)
+set.seed(400)
 ```
 
 # Read and filter the data
@@ -21,7 +21,7 @@ data$away_team_id[data$away_team_id == 52] <- 11
 ```
 
 # The Model
-```{r}
+```{r, set.seed(0)}
 # There are three key parameters: the probability that the worst team in the league beats the best team in a random game (given by 'p'), the standard deviation in game-to-game performance levels for each team (given by 'tao'), and the standard deviation in the team talent levels (given by 'sigma'). We as the researchers choose a value for p or the ratio of tao and sigma.
 p = 0.25
 tao = 4.28
@@ -33,7 +33,7 @@ teamQuality <- rnorm(30, 0, sigma)
 # Calculate tie threshhold.
 alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
 
-nloop <- 1000
+nloop <- 10000
 oldGap <- rep(NA, nloop)
 newGap <- rep(NA, nloop)
 
@@ -147,8 +147,11 @@ returnOldEastern <- function(points) {
   
   wildcards = rbind(atlantic[3:5,],northeast[3:5,],southeast[3:5,])
   wildcards = wildcards[order(-wildcards$totalPoints),]
+  
+  top8 <- rbind(atlantic[1:2,],northeast[1:2,],southeast[1:2,],wildcards[1:2,])
+  top8 = top8[order(-top8$totalPoints),]
 
-  return(rbind(atlantic[1:2,],northeast[1:2,],southeast[1:2,],wildcards[1:2,],wildcards[3:9,]))
+  return(rbind(top8, wildcards[3:9,]))
 }
 
 returnOldWestern <- function(points) {
@@ -162,8 +165,11 @@ returnOldWestern <- function(points) {
   
   wildcards = rbind(central[3:5,],northwest[3:5,],pacific[3:5,])
   wildcards = wildcards[order(-wildcards$totalPoints),]
+  
+  top8 <- rbind(central[1:2,],northwest[1:2,],pacific[1:2,],wildcards[1:2,])
+  top8 = top8[order(-top8$totalPoints),]
 
-  return(rbind(central[1:2,],northwest[1:2,],pacific[1:2,],wildcards[1:2,],wildcards[3:9,]))
+  return(rbind(top8, wildcards[3:9,]))
 }
 
 returnNewEastern <- function(points) {
@@ -175,8 +181,11 @@ returnNewEastern <- function(points) {
   
   wildcards = rbind(metro[4:8,],atlantic[4:8,])
   wildcards = wildcards[order(-wildcards$totalPoints),]
+  
+  top8 <- rbind(metro[1:3,],atlantic[1:3,],wildcards[1:2,])
+  top8 = top8[order(-top8$totalPoints),]
 
-  return(rbind(metro[1:3,],atlantic[1:3,],wildcards[1:2,],wildcards[3:10,]))
+  return(rbind(top8, wildcards[3:10,]))
 }
 
 returnNewWestern <- function(points) {
@@ -188,10 +197,14 @@ returnNewWestern <- function(points) {
   
   wildcards = rbind(central[4:7,],pacific[4:7,])
   wildcards = wildcards[order(-wildcards$totalPoints),]
+  
+  top8 <- rbind(central[1:3,],pacific[1:3,],wildcards[1:2,])
+  top8 = top8[order(-top8$totalPoints),]
 
-  return(rbind(central[1:3,],pacific[1:3,],wildcards[1:2,],wildcards[3:8,]))
+  return(rbind(top8, wildcards[3:8,]))
 }
 ```
+
 
 ```{r}
 seperateConf <- function(points){
