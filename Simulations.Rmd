@@ -92,6 +92,18 @@ simulateSeason <- function() {
 }
 ```
 
+```{r}
+calcTotalPoints <- function(season){
+  totalPoints <- rep(0, 30)
+  for (game in 1:length(seasonGames[[1]])){
+    totalPoints[season[[2]][game]] = totalPoints[season[[2]][i]] +   season[[7]][game]
+    totalPoints[season[[3]][game]] = totalPoints[season[[3]][i]] + season[[8]][game]
+  }
+  return(totalPoints)
+}
+```
+
+
 # Helper functions
 ```{r}
 getHomeTeam <- function(index) {
