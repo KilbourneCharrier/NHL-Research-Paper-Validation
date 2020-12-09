@@ -8,7 +8,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(MASS)
 library(ggplot2)
-set.seed(400)
+library(plyr)
+set.seed(410)
 ```
 
 # Read and filter the data
@@ -32,7 +33,7 @@ teamQuality <- rnorm(30, 0, sigma)
 # Calculate tie threshhold.
 alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
 
-nloop <- 10000
+nloop <- 1000
 oldGap <- rep(NA, nloop)
 newGap <- rep(NA, nloop)
 
@@ -47,9 +48,16 @@ for (i in 1:nloop) {
   newGap[i] <- newEast[8,2] - newWest[8,2]
 }
 
-ggplot() +
-  geom_histogram(aes(oldGap), col = 2, bins = 50) +
-  geom_histogram(aes(newGap), col = 4, bins = 50) 
+df <- data.frame(Rule_Type = rep(c("Old alignment & rules", "New alignment & rules"), each = nloop), gap = c(oldGap, newGap))
+dfDat <- ddply(df, "Rule_Type", summarise, grp.mean=mean(gap))
+
+ggplot(df, aes(x = gap, fill = Rule_Type)) +
+  geom_density(alpha = 0.4) +
+  geom_vline(aes(xintercept = mean(oldGap)), col = 4) +
+  geom_vline(data = dfDat, aes(xintercept = grp.mean, color = Rule_Type), linetype = "dashed") +
+  xlab("Conference gap") +
+  ylab("Density")
+
 
 c(mean(oldGap), mean(newGap))
 ```
