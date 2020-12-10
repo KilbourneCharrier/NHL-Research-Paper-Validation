@@ -17,6 +17,12 @@ output: slidy_presentation
 - Columbus Blue jackets and Detroit Redwings move from the West to the East
 - Each conference previoulsy had three divisions of five teams but these were condensed into the four divisions that currently exist
 
+# Point System
+- Instead of basing ranking off of a team's win-loss record, the NHL tracks points for each team
+- 2 points for win (regulation or overtime)
+- 1 point for overtime loss
+- 0 points for regulation loss
+
 # Playoff Structure
 - For the previous conference/division structure, the top two teams in each division secure a berth into the playoffs
 - The remaining four slots are claimed by the two teams in each conference with the next highest point total regardles of the division. These are known as the wild cards.
