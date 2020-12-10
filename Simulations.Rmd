@@ -19,55 +19,6 @@ data$home_team_id[data$home_team_id == 52] <- 11
 data$away_team_id[data$away_team_id == 52] <- 11
 ```
 
-# The Model
-```{r}
-set.seed(400)
-# There are three key parameters: the probability that the worst team in the league beats the best team in a random game (given by 'p'), the standard deviation in game-to-game performance levels for each team (given by 'tao'), and the standard deviation in the team talent levels (given by 'sigma'). We as the researchers choose a value for p or the ratio of tao and sigma.
-p = 0.25
-tao = 4.28
-sigma = 1
-
-# Calculate tie threshhold.
-alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
-
-nloop <- 1000
-oldGap <- rep(NA, nloop)
-newGap <- rep(NA, nloop)
-seedPoints <- data.frame(integer())
-
-for (i in 1:nloop) {
-  season <- simulateSeason()
-  points <- calcTotalPoints(season)
-  oldEast <- returnOldEastern(points)
-  oldWest <- returnOldWestern(points)
-  newEast <- returnNewEastern(points)
-  newWest <- returnNewWestern(points)
-  oldGap[i] <- oldEast[8,2] - oldWest[8,2]
-  newGap[i] <- newEast[8,2] - newWest[8,2]
-  allTeams <- rbind(newEast, newWest)
-  allTeams <- allTeams[order(-allTeams$totalPoints),]
-  seeds <- data.frame(seedPlace = seq(1,30), points = allTeams$totalPoints)
-  seedPoints <- rbind(seedPoints, seeds)
-}
-
-df <- data.frame(Rule_Type = rep(c("Old alignment & rules", "New alignment & rules"), each = nloop), gap = c(oldGap, newGap))
-dfDat <- ddply(df, "Rule_Type", summarise, grp.mean=mean(gap))
-
-ggplot(df, aes(x = gap, fill = Rule_Type)) +
-  geom_density(alpha = 0.4) +
-  geom_vline(data = dfDat, aes(xintercept = grp.mean, color = Rule_Type), linetype = "dashed") +
-  xlab("Conference gap") +
-  ylab("Density")
-
-ggplot(seedPoints, aes(x = seedPlace, y = points, group = seedPlace)) +
-  geom_boxplot() +
-  coord_flip()
-
-
-c(mean(oldGap), mean(newGap), mean(newGap - oldGap))
-```
-
-
 # Simulating a season
 ```{r}
 simulateSeason <- function() {
@@ -236,8 +187,6 @@ seperateConf <- function(points){
 }
 ```
 
-
-
 # Helper functions
 ```{r}
 getHomeTeam <- function(index) {
@@ -248,6 +197,55 @@ getAwayTeam <- function(index) {
   return (data$away_team_id[index])
 }
 ```
+
+# The Model
+```{r}
+set.seed(400)
+# There are three key parameters: the probability that the worst team in the league beats the best team in a random game (given by 'p'), the standard deviation in game-to-game performance levels for each team (given by 'tao'), and the standard deviation in the team talent levels (given by 'sigma'). We as the researchers choose a value for p or the ratio of tao and sigma.
+p = 0.25
+tao = 4.28
+sigma = 1
+
+# Calculate tie threshhold.
+alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
+
+nloop <- 1000
+oldGap <- rep(NA, nloop)
+newGap <- rep(NA, nloop)
+seedPoints <- data.frame(integer())
+
+for (i in 1:nloop) {
+  season <- simulateSeason()
+  points <- calcTotalPoints(season)
+  oldEast <- returnOldEastern(points)
+  oldWest <- returnOldWestern(points)
+  newEast <- returnNewEastern(points)
+  newWest <- returnNewWestern(points)
+  oldGap[i] <- oldEast[8,2] - oldWest[8,2]
+  newGap[i] <- newEast[8,2] - newWest[8,2]
+  allTeams <- rbind(newEast, newWest)
+  allTeams <- allTeams[order(-allTeams$totalPoints),]
+  seeds <- data.frame(seedPlace = seq(1,30), points = allTeams$totalPoints)
+  seedPoints <- rbind(seedPoints, seeds)
+}
+
+df <- data.frame(Rule_Type = rep(c("Old alignment & rules", "New alignment & rules"), each = nloop), gap = c(oldGap, newGap))
+dfDat <- ddply(df, "Rule_Type", summarise, grp.mean=mean(gap))
+
+ggplot(df, aes(x = gap, fill = Rule_Type)) +
+  geom_density(alpha = 0.4) +
+  geom_vline(data = dfDat, aes(xintercept = grp.mean, color = Rule_Type), linetype = "dashed") +
+  xlab("Conference gap") +
+  ylab("Density")
+
+ggplot(seedPoints, aes(x = seedPlace, y = points, group = seedPlace)) +
+  geom_boxplot() +
+  coord_flip()
+
+
+c(mean(oldGap), mean(newGap), mean(newGap - oldGap))
+```
+
 
 
 
