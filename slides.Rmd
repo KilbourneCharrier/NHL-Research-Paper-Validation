@@ -18,7 +18,10 @@ output: slidy_presentation
 - Each conference previoulsy had three divisions of five teams but these were condensed into the four divisions that currently exist
 
 # Playoff Structure
-- For the previous conference/division structure, 
+- For the previous conference/division structure, the top two teams in each division secure a berth into the playoffs
+- The remaining four slots are claimed by the two teams in each conference with the next highest point total regardles of the division. These are known as the wild cards.
+- The process is similar with the new divisions in each conference
+- Now the top three teams in each division secure a playoff berth and the wild cards are chosen using the same process as before
 
 # The Reasoning for the Sampling
 
