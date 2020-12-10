@@ -1,6 +1,10 @@
 ---
 title: "Using Monte Carlo to estimate the effects of NHL rule changes"
+<<<<<<< Updated upstream
 author: "Kilbourne Charrier, Michael Bauers, Clinton, Sam"
+=======
+author: "Kilbourne, Michael, Clinton, Sam"
+>>>>>>> Stashed changes
 output: slidy_presentation 
 ---
 
@@ -70,7 +74,7 @@ output: slidy_presentation
 
 # 2013-2014 Season Results
 
-- We have found a noticably large conference gap, with the mean of the old alignment being about -0.32 and the mean of the new alignment being about 2.18.
+- We have found a noticably large conference gap, with the mean of the old alignment being about -0.0202 and the mean of the new alignment being about 2.30.
 
 ![](Images/GapVis.png)
 
@@ -80,8 +84,18 @@ output: slidy_presentation
 
 ![](Images/SeedPlace.png)
 
+# What This Shows
+
+- Based on this model we can predict that it is more likely that a team in the West will make the playoffs with a worse overall score than another team in the East much more often than a team in the East will make the playoffs with a worse overall score than another team in the West.
+
+![](Images/GapVis.png)
+
 # Extension 2017-18 season
 
 - This season added the Vegas Golden Knights
 - Now the West has one divion of 8 teams and one division of 7 teams
 - This creates new probabilities for the required points to make it to the playoffs
+
+# Sources
+
+- Pettigrew, Stephen. “How the West Will Be Won: Using Monte Carlo Simulations to Estimate the Effects of NHL Realignment.” Journal of Quantitative Analysis in Sports, vol. 10, no. 3, 1 Jan. 2014, 10.1515/jqas-2013-0125. Accessed 10 Dec. 2020.
