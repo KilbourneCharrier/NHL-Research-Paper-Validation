@@ -1,6 +1,6 @@
 ---
-title: "insert title here"
-author:
+title: "Using Monte Carlo to estimate the effects of NHL rule changes"
+author: "Kilbourne Charrier, Michael Bowers, Clinton, Sam"
 output: slidy_presentation 
 ---
 
@@ -9,7 +9,7 @@ output: slidy_presentation
 - Each team plays 82 games per season
 - This allows for every team to play each team at least twice
 - The league is split up into two conferences, the East and the West, each with two divisions
--The East has the Metropolitan and the Atlantic divisions while the West has the Central and Pacific divisions.
+- The East has the Metropolitan and the Atlantic divisions while the West has the Central and Pacific divisions.
 
 ## The Changes for the 2013-14 season
 
@@ -45,8 +45,8 @@ output: slidy_presentation
 - We generate each team's "quality" from a normal distribution
 - For each of the games played we generate a "game performance" metric from a normal distribution with the mean being the respective team's quality.
 
-![Quality Metric](Images/teamQuality.png)
-![Game Performance](Images/teamPerformance.png)
+![](Images/teamQuality.png)
+![](Images/teamPerformance.png)
 
 # The Model: Methods
 
@@ -62,7 +62,15 @@ output: slidy_presentation
 
 # 2013-2014 Season Results
 
-- We have found 
+- We have found a noticably large conference gap, with the mean of the old alignment being about -0.32 and the mean of the new alignment being about 2.18.
+
+![](Images/GapVis.png)
+
+# 2013-2014 Season Results
+
+- Another interesting graph!
+
+![](Images/SeedPlace.png)
 
 # Extension 2017-18 season
 
