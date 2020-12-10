@@ -33,4 +33,4 @@ output: slidy_presentation
 
 - This season added the Vegas Golden Knights
 - Now the West has one divion of 8 teams and one division of 7 teams
-- This creates new probabilities for the required points to make it to the playoffs 
+- This creates new probabilities for the required points to make it to the playoffs
