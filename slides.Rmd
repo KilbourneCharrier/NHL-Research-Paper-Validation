@@ -1,6 +1,6 @@
 ---
 title: "Using Monte Carlo to estimate the effects of NHL rule changes"
-author: "Kilbourne, Michael, Clinton, Sam"
+author: "Kilbourne Charrier, Michael Bauers, Clinton, Sam Downs"
 output: slidy_presentation 
 ---
 
@@ -92,11 +92,19 @@ output: slidy_presentation
 - Now the West has one divion of 8 teams and one division of 7 teams
 - This creates new probabilities for the required points to make it to the playoffs
 
-# Conclusion
+# Results of 2017-2018
 
-- The rule changes put in place in 2013 did make it less "fair" for the East teams which have a harder time making the playoffs in comparison to the West teams.
-- Adding an additional team to the West shortened the conference gap by essentially increacing 'n'!
-- The more closely the two conferences resemble each other in terms of number of teams and number of districts the more "fair" the playoff system is.
+- Conference gap under the old alignment was estimated to be 0.038 
+- Conference gap under the new alignment with 31 teams was estimated to be 1.091 
+
+# 2017-2018 Plots
+
+![](Images/gapvis20172018.png)
+
+# 2017-2018 Plots
+
+![](Images/seedplace20172018.png)
+
 
 # Sources
 
