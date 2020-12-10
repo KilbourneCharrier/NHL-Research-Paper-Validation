@@ -29,6 +29,41 @@ output: slidy_presentation
 - 8 teams from both conferences were garunteed to make the playoffs
 - The sampling is meant to test whether or not it is more difficult to reach the playoffs as an eastern confrence team
 
+# The Model: Goals
+
+- To simulate the performance of each team over a season with varying rules
+- To create an accurate scoring system that accounts for ties
+
+# The Model: Goals
+
+- To simulate the performance of each team over a season with varying rules
+- To create an accurate scoring system that accounts for ties
+- (For me) to learn how hockey works!
+
+# The Model: Methods
+
+- We generate each team's "quality" from a normal distribution
+- For each of the games played we generate a "game performance" metric from a normal distribution with the mean being the respective team's quality.
+
+![Quality Metric](Images/teamQuality.png)
+![Game Performance](Images/teamPerformance.png)
+
+# The Model: Methods
+
+- A game will go into overtime ~ 22.4% of the time
+- If the teams skills are within a threshold alpha, it will go into overtime
+- Once in overtime rescale performances and determine winner by weighted coinflip
+
+# The Model: Methods
+
+- We simulate 10,000 seasons to gather our metrics
+- Sort teams into the right conference, then into the right division based on which set of rules we are looking at (old or new)
+- Calculate the conference gap
+
+# 2013-2014 Season Results
+
+- We have found 
+
 # Extension 2017-18 season
 
 - This season added the Vegas Golden Knights
