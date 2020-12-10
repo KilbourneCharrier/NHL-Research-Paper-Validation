@@ -1,0 +1,161 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={insert title here},
+  pdfborder={0 0 0},
+  breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\newif\ifbibliography
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-2}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{insert title here}
+\date{}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{NHL Background}
+\protect\hypertarget{nhl-background}{}
+
+\begin{block}{The National Hockey League (NHL)}
+
+\begin{itemize}
+\tightlist
+\item
+  Each team plays 82 games per season
+\item
+  This allows for every team to play each team at least twice
+\end{itemize}
+
+\end{block}
+
+\begin{block}{The changes for the 2013-14 season}
+
+\begin{itemize}
+\tightlist
+\item
+  Winnipeg Jets move from the Eastern to the Western confrence
+\item
+  Columbus Blue jackets and Detroit Redwings move from the Wet to the
+  East\\
+\end{itemize}
+
+\end{block}
+
+\begin{block}{The reasoning for the sampling}
+
+\begin{itemize}
+\tightlist
+\item
+  Changes left the West with 2 divisions of 14 teams and the East with 2
+  divisions of 16 teams
+\item
+  8 teams from both confrences wer garunteed to make the playoffs
+\item
+  The sampling is meant to test wheter or not it is more difficult to
+  reach the playoffs as an eastern confrence team
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Extension 2017-18 season}
+\protect\hypertarget{extension-2017-18-season}{}
+
+\begin{itemize}
+\tightlist
+\item
+  This season added the Vegas Golden Knights
+\item
+  Now the west has 1 divion of 8 teams and one division of 7 teams
+\item
+  This creates new probabillities for the required points to make it to
+  the playoffs
+\end{itemize}
+
+\end{frame}
+
+\end{document}
