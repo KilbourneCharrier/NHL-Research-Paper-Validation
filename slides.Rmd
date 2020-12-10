@@ -37,6 +37,12 @@ output: slidy_presentation
 - 8 teams from both conferences were garunteed to make the playoffs
 - The sampling is meant to test whether or not it is more difficult to reach the playoffs as an eastern confrence team
 
+# Conference Gap Definition
+
+- After seeding the teams in each conference, we look at both of the 8th seeds. 
+- The 8th seed is the cutoff for which teams make the playoffs 
+- The difference between the point totals for the East 8th seed and the point totals for the West 8th seed is the conference gap.
+
 # The Model: Goals
 
 - To simulate the performance of each team over a season with varying rules
