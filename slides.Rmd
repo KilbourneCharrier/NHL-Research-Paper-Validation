@@ -105,6 +105,14 @@ output: slidy_presentation
 
 ![](Images/seedplace20172018.png)
 
+# Conclusion
+
+- The rule changes put in place in 2013 did make it less "fair" for the East teams which have a harder time making the playoffs in comparison to the West teams.
+- Adding an additional team to the West shortened the conference gap by essentially increacing 'n'!
+- The more closely the two conferences resemble each other in terms of number of teams and number of districts the more "fair" the playoff system is.
+
+![](Images/GapVis.png)
+![](Images/gapvis20172018.png)
 
 # Sources
 
