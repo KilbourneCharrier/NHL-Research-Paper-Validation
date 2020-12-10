@@ -1,10 +1,6 @@
 ---
 title: "Using Monte Carlo to estimate the effects of NHL rule changes"
-<<<<<<< Updated upstream
-author: "Kilbourne Charrier, Michael Bauers, Clinton, Sam"
-=======
 author: "Kilbourne, Michael, Clinton, Sam"
->>>>>>> Stashed changes
 output: slidy_presentation 
 ---
 

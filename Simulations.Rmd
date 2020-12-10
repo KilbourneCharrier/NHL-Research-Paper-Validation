@@ -209,7 +209,7 @@ sigma = 1
 # Calculate tie threshhold.
 alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
 
-nloop <- 1000
+nloop <- 10000
 oldGap <- rep(NA, nloop)
 newGap <- rep(NA, nloop)
 seedPoints <- data.frame(integer())
