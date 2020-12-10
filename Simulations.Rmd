@@ -33,6 +33,7 @@ alpha <- qnorm(0.612, 0, sqrt(2 * (tao^2 + sigma^2)))
 nloop <- 1000
 oldGap <- rep(NA, nloop)
 newGap <- rep(NA, nloop)
+seedPoints <- data.frame(integer())
 
 for (i in 1:nloop) {
   season <- simulateSeason()
@@ -43,6 +44,10 @@ for (i in 1:nloop) {
   newWest <- returnNewWestern(points)
   oldGap[i] <- oldEast[8,2] - oldWest[8,2]
   newGap[i] <- newEast[8,2] - newWest[8,2]
+  allTeams <- rbind(newEast, newWest)
+  allTeams <- allTeams[order(-allTeams$totalPoints),]
+  seeds <- data.frame(seedPlace = seq(1,30), points = allTeams$totalPoints)
+  seedPoints <- rbind(seedPoints, seeds)
 }
 
 df <- data.frame(Rule_Type = rep(c("Old alignment & rules", "New alignment & rules"), each = nloop), gap = c(oldGap, newGap))
@@ -50,14 +55,18 @@ dfDat <- ddply(df, "Rule_Type", summarise, grp.mean=mean(gap))
 
 ggplot(df, aes(x = gap, fill = Rule_Type)) +
   geom_density(alpha = 0.4) +
-  geom_vline(aes(xintercept = mean(oldGap)), col = 4) +
   geom_vline(data = dfDat, aes(xintercept = grp.mean, color = Rule_Type), linetype = "dashed") +
   xlab("Conference gap") +
   ylab("Density")
 
+ggplot(seedPoints, aes(x = seedPlace, y = points, group = seedPlace)) +
+  geom_boxplot() +
+  coord_flip()
+
 
 c(mean(oldGap), mean(newGap))
 ```
+
 
 # Simulating a season
 ```{r}
