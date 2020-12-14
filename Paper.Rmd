@@ -1,5 +1,5 @@
 ---
-title: "NHL realignment effects on conference gap"
+title: "NHL realignment effects on the conference gap"
 author: "Kilbourne Charrier, Michael Bauers, Clinton Rothschild, Sam Downs"
 output: pdf_document
 ---
@@ -9,14 +9,82 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 # Motivation
-   In the 2013-14 National Hockey League(NHL) season, the league made some changes to the confrence numbers. The Winnipeg Jets moved from the Eastern confrence to the Western confrence. This createed an imbalance in the confrence numbers giving the Eastern confrence  teams and leaving the Western confrence with only fourteen teams. From the start, it already seemed unfair to have more teams in one confrence than the other. If every team had equal skill, the fourteen teams in the western confrence had an equal one four in seven chance of making it to the playoffs. In contrast, the sixteen teams in the eastern confrence had a fifty percent chance of making it to the playoffs. This uneven probabillity will be known for the rest of the paper as the confrence gap.  
-  Now how could an organization as big as the NHL allow for that kind of discrepency between the confrences? That is what had us curious. As a continuation of our research we wanted to look at a nother season with a similiar balance shift in the confrences to see how that change couild have affected the outcome of the season. The season wwe choose was the recent expansion draft season of 2017-18. Before the start of the season, the NHL added a new franchis in the Las Vegas Golden Knights. This tewam was set to join the Western Confrence. This shifted the confrence split from fourteen to sixtten West to East to a closer fifteen to sixteen split. We wanted to see if our result was statistically significant from both the confrence gap of an even season and the confrence gap from our tested 2013-14 season.  
+   In the 2013-14 National Hockey League (NHL) season, the league made some changes to the conference numbers. The Winnipeg Jets moved from the Eastern conference to the Western conference. This created an imbalance in the conference numbers giving the Eastern conference sixteen teams and leaving the Western conference with only fourteen teams. From the start, it already seemed unfair to have more teams in one conference than the other. If every team had equal skill, the fourteen teams in the western conference had an equal one four in seven chance of making it to the playoffs. In contrast, the sixteen teams in the eastern conference had a fifty percent chance of making it to the playoffs. This uneven probabillity will be known for the rest of the paper as the conference gap.
+   
+  Now how could an organization as big as the NHL allow for that kind of discrepency between the conferences? As a continuation of our research we wanted to look at another season with a similiar balance shift in the conferences to see how that change could have affected the outcome of the season. The season we chose was the recent expansion draft season of 2017-18. Before the start of the season, the NHL added a new franchise in the Las Vegas Golden Knights. This team was set to join the Western conference. This shifted the conference split from fourteen to sixtten West to East to a closer fifteen to sixteen split. We wanted to see if our result was statistically significant from both the conference gap of an even season and the conference gap from our tested 2013-14 season.
 
 ## Introduction
-  In 2011 when the Atlanta Thrashers became the Winnipeg Jets, a problem was presented as Winnipeg is considerably far from the east coast of the North american continent. Because of this and how the season is set up, the average travel time for teams playing winnipeg were fairly large as eastern confrence teams play echother more often. Just before the start of the 2013-14 season, the league offices for the NHL decided to move over the Winnipeg Jets from the Eastern Confrence to the Western Confrence and in return the Eastern Confrence aquired the Columbus Blue Jackets and the Detroit Redwings. This left the the two confrences at an uneven balance. The Eastern Confrence now had sixteen teams while the Western Confrence only had fourteen teams. This presented a curious problem as for both confrences, eight teams make the playoff brackets. It is easy to see the problem at hand that the western confrence has just as many playoff slots for having two less teams. The goal of our research and the paer we leaned on, was to discover what that difference could mean in the grander sense of the league moving forward with this set up. We did this based on the average points and wins necessary to make the playoffs for both confrences.
-  To further our study, we also looked at the 2017-18 season. This season is important becasue it gave the introduction of a new team in the league none as the Las Vegas Golden Knights. This team was added to the Western Confrence makiing the split slightly more even. Our goal for this was to see how adding a single team could change the skill outcome for the playoffs. We looked at the same measures to understand the new confrence gap as our previous analysis of the 2013-14 season.
+  In 2011 when the Atlanta Thrashers became the Winnipeg Jets. A problem was presented as Winnipeg is considerably far from the east coast of the North American continent. Because of this and how the season is set up, the average travel time for teams playing winnipeg were fairly large as eastern conference teams play each other more often. Just before the start of the 2013-14 season, the league offices for the NHL decided to move over the Winnipeg Jets from the Eastern conference to the Western conference and in return the Eastern conference aquired the Columbus Blue Jackets and the Detroit Redwings. This left the the two conferences at an uneven balance. The Eastern conference now had sixteen teams while the Western conference only had fourteen teams. This presented a curious problem as for both conferences, eight teams make the playoff brackets. It is easy to see the problem at hand that the western conference has just as many playoff slots for having two less teams. The goal of our research and the paer we leaned on, was to discover what that difference could mean in the grander sense of the league moving forward with this set up. We did this based on the average points and wins necessary to make the playoffs for both conferences.
+
+  To further our study, we also looked at the 2017-18 season. This season is important becasue it gave the introduction of a new team in the league none as the Las Vegas Golden Knights. This team was added to the Western conference makiing the split slightly more even. Our goal for this was to see how adding a single team could change the skill outcome for the playoffs. We looked at the same measures to understand the new conference gap as our previous analysis of the 2013-14 season.
+
 
 # Methodology
 
+## Basic Idea
+
+The basic idea behind the model is that all of the teams have a "skill level" that they play at or near during any given game. Each game is competitive because we aren't sure how well either team will play, and even a team with a higher skill level can be beaten by another team for any number of reasons. We keep track of this skill level and draw other metrics based off of it, then use the metrics to compute a team's score for the season. This score is used to calculate the team's seed in their respective conference and division.
+
+## Creating the Model
+
+To start out, we first need to make sure that we calculate the game-to-game performance levels given by $\tau$ and the standard deviation of the team's talent levels given by $\sigma$. These are related to the following ratio, where p is the probability that the worst team in the league beats the best team in the league. 
+
+$-\frac{2.8854}{\Phi^{-1}(p)} = \frac{\tau}{\sigma}$
+
+Based on the data from all of the seasons with 30 teams, we can calculate that the team with the worst record in the league beat the team with the best team about a quarter of the time. We choose to set p equal to 0.25 for this reason, making the ratio $\tau/\sigma$ = 4.28. This means that there are four times the variability in the team's performances in game than there is in the talent levels of the teams. The actual values of $\tau$ and $\sigma$ don't matter, just the ratio, but for simplicity we will set $\tau$ equal to 4.28 and $\sigma$ equal to 1.
+
+We then want to simulate a skill level metric for each of the thirty teams. We create the metric from the following distribution, with team i being equal to $\mu_{i}$.
+
+$\mu_{i}$~$N(0,\sigma^{2})$
+
+We draw the values from a normal distribution because in sports the overall performace of the teams is generally normally distributed. That is, there are a few really good teams, a few really bad teams, and a lot of teams in between.
+
+We hold the team skill levels constant throughout the season, this make intuitive sense, because there are very seldom large changes to the team's rosters or strategies throughout a season, but after each season teams often make at least some change.
+
+For each game that is played in the season we draw a performance metric for both competing teams. This metric is drawn from a normal distribution with the mean being equal to the team's skill level and the standard deviation being equal to $\tau^{2}$. This is based on the idea that a team with any skill level will play somewhere around their skill level, rarely playing much worse and rarely playing much better. This metric is calculated as such, with i indicating the home team and j indicating the away team.
+
+$\gamma_{i}$~$N(\mu_{i}, \tau^{2})$
+
+$\gamma_{j}$~$N(\mu_{j}, \tau^{2})$
+
+Logically, the winner of each game would be decided by the higher value of $\gamma$, but in hockey it is possible for the game to go into overtime. This happens in about 22.4% of the games that were played over the past 15 seasons, so we must solve the following equasion for $\alpha$:
+
+$Pr(|\gamma_{i}-\gamma_{j}| < \alpha) = 22.4$%
+
+Solving this equasion gives us a value of $\alpha \approx 1.769.$
+
+If there is a game in which $|\gamma_{i}-\gamma_{j}|\geq \alpha$, the team with the higher $\gamma$ value is awarded a win and is therefore given two points while the team with the lower $\gamma$ value is given 0 points. For games in which $|\gamma_{i}-\gamma_{j}| < \alpha$, the game is considered a tie.
+
+In the case of a tie we linearly resale the $\gamma$ values with the following formula:
+
+$\zeta = \frac{(\gamma_{i}-\gamma_{j}) - a}{b}$
+
+Where a is the mean and b is the maximum of all $\gamma_{i}-\gamma_{j}$ values from that season.
+
+Using the resulting value of $\zeta$ we use a Bernoulli distribution to simulate a weighted coin flip, with a success meaning that the home team wins and a failure meaning the away team wins.
+
+Winner ~ $Bernoulli(\zeta_{ij})$
+
+The winning team receives two points while the losing team receives one point.
+
+We simulate 10,000 seasons using these principles and simulate the old and new rulesets by going through the different division brackets depending on the rules. We then calculate the conference gap for both the old and the new ruleset. We also save the number of points earned by each seed to do analysis on later.
+
+## Additional model details
+
+Our model does not account for the real-world skill of teams, but because we are not doing any inference on specific team performance depending on rule changes this is not relevant. Because we are interested in the difference in scores of the 8th seeds we actually don't even need any real-world teams and can instead replace them with placeholders or just numbers.
+
+An alternative choice we could have made is that in the event of a tie we could have given either team a 50% chance of winning instead of linearly rescaling the values and using a weighted coin flip, but we don't know exactly how the outcome of NHL overtime games usually end up skewing -- whether it be in favor of the better team or if it is distributed more randomly.
+
+
+
+
+
 
 # Results
+
+
+
+
+# References
+
+- Pettigrew, Stephen. “How the West Will Be Won: Using Monte Carlo Simulations to Estimate the Effects of NHL Realignment.” Journal of Quantitative Analysis in Sports, vol. 10, no. 3, 1 Jan. 2014, 10.1515/jqas-2013-0125. Accessed 10 Dec. 2020.
