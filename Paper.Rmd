@@ -9,6 +9,9 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 # Motivation
+  The endeavor to start this project began with the struggles given by our previous project idea. Because of this we were left stranded, searching fo a new project idea. When we learned that there was a paper written on the National Hockey League(NHL) with easy to access data, we hopped on the idea and got to work. As we continued our research and modeling we became more and more curious with the concept of wheighting confrences in sports by moving around teams. From the start, it already seemed unfair to have more teams in one confrence than the other. If every team had equal skill, the fourteen teams in the western confrence had an equal one four in seven chance of making it to the playoffs. In contrast, the sixteen teams in the eastern confrence had a fifty percent chance of making it to the playoffs. This uneven probabillity will be known for the rest of the paper as the confrence gap.  
+  Now how could an organization as big as the NHL allow for that kind of discrepency between the confrences? That is what had us curious. As a continuation of our research we wanted to look at a nother season with a similiar balance shift in the confrences to see how that change couild have affected the outcome of the season. The season wwe choose was the recent expansion draft season of 2017-18. Before the start of the season, the NHL added a new franchis in the Las Vegas Golden Knights. This tewam was set to join the Western Confrence. This shifted the confrence split from fourteen to sixtten West to East to a closer fifteen to sixteen split. We wanted to see if our result was statistically significant from both the confrence gap of an even season and the confrence gap from our tested 2013-14 season. 
+
 
 ## Introduction
 
