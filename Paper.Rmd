@@ -41,6 +41,35 @@ $\gamma_{i}$~$N(\mu_{i}, \tau^{2})$
 
 $\gamma_{j}$~$N(\mu_{j}, \tau^{2})$
 
+Logically, the winner of each game would be decided by the higher value of $\gamma$, but in hockey it is possible for the game to go into overtime. This happens in about 22.4% of the games that were played over the past 15 seasons, so we must solve the following equasion for $\alpha$:
+
+$Pr(|\gamma_{i}-\gamma_{j}| < \alpha) = 22.4$%
+
+Solving this equasion gives us a value of $\alpha \approx 1.769.$
+
+If there is a game in which $|\gamma_{i}-\gamma_{j}|\geq \alpha$, the team with the higher $\gamma$ value is awarded a win and is therefore given two points while the team with the lower $\gamma$ value is given 0 points. For games in which $|\gamma_{i}-\gamma_{j}| < \alpha$, the game is considered a tie.
+
+In the case of a tie we linearly resale the $\gamma$ values with the following formula:
+
+$\zeta = \frac{(\gamma_{i}-\gamma_{j}) - a}{b}$
+
+Where a is the mean and b is the maximum of all $\gamma_{i}-\gamma_{j}$ values from that season.
+
+Using the resulting value of $\zeta$ we use a Bernoulli distribution to simulate a weighted coin flip, with a success meaning that the home team wins and a failure meaning the away team wins.
+
+Winner ~ $Bernoulli(\zeta_{ij})$
+
+The winning team receives two points while the losing team receives one point.
+
+We simulate 10,000 seasons using these principles and simulate the old and new rulesets by going through the different division brackets depending on the rules. We then calculate the conference gap for both the old and the new ruleset. We also save the number of points earned by each seed to do analysis on later.
+
+## Additional model details
+
+Our model does not account for the real-world skill of teams, but because we are not doing any inference on specific team performance depending on rule changes this is not relevant. Because we are interested in the difference in scores of the 8th seeds we actually don't even need any real-world teams and can instead replace them with placeholders or just numbers.
+
+An alternative choice we could have made is that in the event of a tie we could have given either team a 50% chance of winning instead of linearly rescaling the values and using a weighted coin flip, but we don't know exactly how the outcome of NHL overtime games usually end up skewing -- whether it be in favor of the better team or if it is distributed more randomly.
+
+
 
 
 
@@ -49,3 +78,10 @@ $\gamma_{j}$~$N(\mu_{j}, \tau^{2})$
 
 
 # Results
+
+
+
+
+# References
+
+- Pettigrew, Stephen. “How the West Will Be Won: Using Monte Carlo Simulations to Estimate the Effects of NHL Realignment.” Journal of Quantitative Analysis in Sports, vol. 10, no. 3, 1 Jan. 2014, 10.1515/jqas-2013-0125. Accessed 10 Dec. 2020.
