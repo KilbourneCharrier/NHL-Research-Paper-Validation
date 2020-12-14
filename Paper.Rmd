@@ -75,14 +75,27 @@ Our model does not account for the real-world skill of teams, but because we are
 
 An alternative choice we could have made is that in the event of a tie we could have given either team a 50% chance of winning instead of linearly rescaling the values and using a weighted coin flip, but we don't know exactly how the outcome of NHL overtime games usually end up skewing -- whether it be in favor of the better team or if it is distributed more randomly.
 
-
-
-
-
-
 # Results
 
+After doing 10,000 simulations of full NHL seasons using the Monte Carlo simulation methods, the results can be seen in the figure below. The red shaded graph represents the gap between the East and West 8th seeds (conference gap) under the conference and division alignment in the 2013-14 NHL season while the blue graph represents the gap between the East and West 8th seeds (conference gap) under the conference and division alignment in the 2012-2013 NHL season. The mean conference gap for the new alignment (2013-2014) is 2.30 points while the mean conference gap for the old alignment (2012-2013) is practically zero at -0.02 points. 
 
+![](Images/GapVis.png)
+
+Looking at these results, the numbers fall in line with what would be the logical expectation under these circumstances. The new alignment moves the balance of teams over towards the East with 16 teams while the West sits at 14 teams. With more teams in the East, it makes sense that the East would have more teams with higher number of total points from the season. To look at these results in a different light, it is key to translate these numbers to the point scoring system of the NHL. On average, the difference between the conference gaps of the two division alignments comes out to be 2.32 in favor of the new alignment. The conference gap has been calculated as:  
+
+  
+East 8th Seed Total Points - West 8th Seed Total Points  
+  
+
+The mean conference gap, in terms of total points, means that the East’s 8th seeded team has on average 2.32 more points than the West’s 8th seeded team. In the NHL, a team earns 2 points for a win, 1 point for an overtime loss, and 0 points for a loss. With this point system, the East’s 8th seeded team on average needs to win one more game during the season or exchange two losses for two losses in overtime. This favors western conference teams in the way they have to earn less total points throughout the season to make the playoffs then eastern conference teams.
+
+Not only were the 8th seed from each conference calculated but each seed for the whole NHL. These box and whisker plots show a wide range of information for the total points for each seed. The endpoints of the whiskers represent the outlier point totals earned by each seed. The sides of the box represent the 2.5% and 97.5% quantiles. The line within the box represents the mean. The structure of this plot makes sense with the curve of less points the lower seed and more points the higher seed the team achieves. The higher number on the graph represents the lower seed of the team; 30 being the worst team in the league and 1 being the best team in the league. This has been cross-examined with real NHL data and the shape lines up in a similar fashion. 
+
+![](Images/SeedPlace.png)
+
+# Conclusion
+
+Since the change to the dynamic of the NHL structure, there have been questions on which that structure causes an unfair advantage for one of the conferences: more specifically the Western Conference. With the West having two less teams, it was inferred that each of those teams would have a better chance of making the playoffs. They wouldn’t need to earn as many points to secure a playoff spot as teams in the Eastern Conference. After running 10,000 Monte Carlo simulations of the 2013-2014 NHL season, the results support the case that the Western Conference has a noticeable advantage over the Eastern Conference. The 8th seed in the east on average has an end of season point total of 2.32 points higher than the 8th seed in the west. This can cause problems because a statistically worse team can make the playoffs in the Western Conference while a better team might miss out in the Eastern Conference. This can be seen as unfair because the teams do not have any say in what conference they are in so this advantage is unwarranted. 
 
 
 # References
