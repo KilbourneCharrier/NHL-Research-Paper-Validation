@@ -1,0 +1,19 @@
+---
+title: "NHL realignment effects on conference gap"
+author: "Kilbourne Charrier, Michael Bauers, Clinton, Sam Downs"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Motivation
+
+## Introduction
+
+
+# Methodology
+
+
+# Results
